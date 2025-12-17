@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASK: The Chatbot</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'nature.png' %}">
+
+</head>
+<body style="background-image: url('{% static 'nature.png' %}'); 
+             background-size: cover; 
+             background-position: center; 
+             background-repeat: no-repeat;
+             height: 100vh; 
+             margin: 0;">
+
+    <div class="container">
+        <div class="card">
+            <h1>ASK: The Chatbot</h1>
+            <p>
+                
+                Please enter the doubt below to get your answer.
+            </p>
+
+            <form>
+                <input type="text" placeholder="Enter your question" required>
+                <button type="submit">Get Answer</button>
+            </form>
+
+            <p class="resend">
+                Didn’t receive the desired answer?
+                <a href="#">ask again</a>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
