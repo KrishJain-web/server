@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+# from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -127,3 +128,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,"static"),
     '/var/www/static/',
 ]
+from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load variables from .env
+# OPENAI_API_KEY = os.getenv("")
+
+
