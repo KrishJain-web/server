@@ -1,12 +1,12 @@
-{% load static %}
+{% comment %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ASK: The Chatbot</title>
+    <title>ASK</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'nature.png' %}">
-
+    <link rel="icon" type="image/png" href="{% static 'logo.png' %}">
+    <audio src="{% static 'forest.mp3' %}" autoplay loop> hi</audio>
 </head>
 <body style="background-image: url('{% static 'nature.png' %}'); 
              background-size: cover; 
@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="card">
-            <h1>ASK: The Chatbot</h1>
+            <h1>ASK</h1>
             <p>
                 
                 Please enter the doubt below to get your answer.
@@ -25,15 +25,77 @@
 
             <form>
                 <input type="text" placeholder="Enter your question" required>
-                <button type="submit">Get Answer</button>
-            </form>
+                <button type="button" onclick="window.location.href='{% url 'about' %}'">Get Answer</button>
+
+            </form> 
+            <form id="askForm">
+    
 
             <p class="resend">
                 Didn’t receive the desired answer?
-                <a href="#">ask again</a>
+                <a href="/askagain">ask again</a>
             </p>
         </div>
     </div>
 
+
+
+</body>
+</html> {% endcomment %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASK</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'logo.png' %}">
+    <audio src="{% static 'forest.mp3' %}" autoplay loop></audio>
+</head>
+<body style="background-image: url('{% static 'nature.png' %}'); 
+             background-size: cover; 
+             background-position: center; 
+             background-repeat: no-repeat;
+             height: 100vh; 
+             margin: 0;">
+
+    <div class="container">
+        <div class="card">
+            <h1>ASK</h1>
+            <p>Please enter the doubt below to get your answer.</p>
+
+            <form id="askForm">
+                <input type="text" id="questionInput" placeholder="Enter your question" required>
+                <button type="submit">Get Answer</button>
+            </form>
+
+            <div id="answerBox" style="margin-top:20px; color:black;"></div>
+
+            <p class="resend">
+                Didn’t receive the desired answer?
+                <a href="/askagain">ask again</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+    console.log("Js loaded")
+    document.getElementById('askForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const question = document.getElementById('questionInput').value;
+        const responseBox = document.getElementById('answerBox');
+        responseBox.innerHTML = "Thinking...";
+
+        try {
+            const res = await fetch(`/chat/?message=${encodeURIComponent(question)}`);
+            const data = await res.json();
+            responseBox.innerHTML = data.reply;
+        } catch (err) {
+            responseBox.innerHTML = "Error getting answer. Please try again.";
+            console.error(err);
+        }
+    });
+    </script>
 </body>
 </html>
