@@ -15,10 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from home.views import home,about,services
+from home.views import home,about,services,askagain
+from django.urls import path
+from . import views
 
 urlpatterns = [
+    path('chat/', views.chat_with_openai, name='chat_with_openai'),
+
+
+
+
+
     path('', home, name='home'),
     path('about', about, name='about'),
-    path('services', services, name='services')
+    path('services', services, name='services'),
+    path('askagain', askagain, name='askagain'),
+    # path('ask_llm/', ask_llm, name='ask_llm'),
 ]
